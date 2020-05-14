@@ -1,0 +1,47 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_form_alter().
+ * @param array $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ * @param $form_id
+ *
+ */
+function community_builder_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id == 'node_posts_form' || $form_id === 'node_posts_edit_form') {
+    // Set default value for community.
+    $community = \Drupal::request()->query->get('community');
+    if ($community) {
+      $form['field_community']['widget']['#default_value'] = $community;
+      $form['field_community']['widget']['#attributes']['disabled'] = 'disabled';
+      // Hide widget when community already selected.
+      //    $form['field_community']['#attributes']['style'] = 'display:none';
+    }
+  }
+  if ($form_id === 'node_posts_edit_form') {
+    $form['field_community']['widget']['#attributes']['disabled'] = 'disabled';
+    // Hide widget when community already selected.
+    //    $form['field_community']['#attributes']['style'] = 'display:none';
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert() for node entities.
+ * @param \Drupal\node\NodeInterface $node
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function community_builder_node_insert(NodeInterface $node) {
+//  $groupEntity = [];
+//  $groupId = $node->get('field_community')->value;
+//  $type = $groupEntity->getGroupType()->id() . '-group_node-' . $node->getType();
+//  $groupContentEntity = \Drupal\group\Entity\GroupContent::create([
+//    'gid' => $groupEntity->id(),
+//    'entity_id' => $node->id(),
+//    'type' => $type,
+//  ]);
+//  $groupContentEntity->save();
+}
