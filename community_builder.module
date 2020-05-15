@@ -11,7 +11,7 @@ use Drupal\node\NodeInterface;
  *
  */
 function community_builder_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
-  if ($form_id == 'node_posts_form' || $form_id === 'node_posts_edit_form') {
+  if ($form_id === 'node_posts_form') {
     // Set default value for community.
     $community = \Drupal::request()->query->get('community');
     if ($community) {
