@@ -4,6 +4,34 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\NodeInterface;
 
 /**
+ * Implements hook_theme().
+ * @param $existing
+ * @param $type
+ * @param $theme
+ * @param $path
+ *
+ * @return array
+ */
+function community_builder_theme($existing, $type, $theme, $path) {
+  return [
+    'hero_banner_block' => [
+      'variables' => ['data' => NULL],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_element_info_alter().
+ * @param array $types
+ */
+function community_builder_element_info_alter(array &$types) {
+  // Attach our extra CSS for toolbar icons.
+  if (isset($types['toolbar'])) {
+    $types['toolbar']['#attached']['library'][] = 'community_builder/toolbar';
+  }
+}
+
+/**
  * Implements hook_form_alter().
  * @param array $form
  * @param \Drupal\Core\Form\FormStateInterface $form_state
@@ -32,7 +60,6 @@ function community_builder_form_alter(array &$form, FormStateInterface $form_sta
  * Implements hook_ENTITY_TYPE_insert() for node entities.
  * @param \Drupal\node\NodeInterface $node
  *
- * @throws \Drupal\Core\Entity\EntityStorageException
  */
 function community_builder_node_insert(NodeInterface $node) {
 //  $groupEntity = [];

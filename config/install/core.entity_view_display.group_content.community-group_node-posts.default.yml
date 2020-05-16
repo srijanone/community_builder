@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.group_content.community-group_node-posts.field_community
+    - field.field.group_content.community-group_node-posts.field_images
+    - group.content_type.community-group_node-posts
+id: group_content.community-group_node-posts.default
+targetEntityType: group_content
+bundle: community-group_node-posts
+mode: default
+content:
+  field_community:
+    weight: -3
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+hidden:
+  entity_id: true
+  field_images: true
+  uid: true
