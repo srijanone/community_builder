@@ -6,9 +6,13 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">{{ data.title }}</h5>
-        <p class="card-text">{{ data.text }}</p>
-        <button type="button" class="btn btn-primary">{{ data.buttons.button1 }}</button>
-        <button type="button" class="btn btn-primary">{{ data.buttons.button2 }}</button>
+        <p class="card-text">{{ data.short_title }}</p>
+        <a href="{{ data.askQue.link }}">
+          <button type="button" class="btn btn-primary">{{ data.askQue.button }}</button>
+        </a>
+        <a href="{{ data.getSupport.link }}">
+          <button type="button" class="btn btn-primary">{{ data.getSupport.button }}</button>
+        </a>
       </div>
     </div>
   </div>
