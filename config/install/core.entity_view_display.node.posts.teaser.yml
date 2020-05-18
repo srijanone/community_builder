@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.posts.field_comments
+    - field.field.node.posts.field_community
+    - field.field.node.posts.field_description
+    - field.field.node.posts.field_images
+    - field.field.node.posts.field_question_type
+    - node.type.posts
+  module:
+    - user
+id: node.posts.teaser
+targetEntityType: node
+bundle: posts
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_comments: true
+  field_community: true
+  field_description: true
+  field_images: true
+  field_question_type: true

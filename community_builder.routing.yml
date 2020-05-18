@@ -1,0 +1,7 @@
+community.settings:
+  path: '/admin/community/settings'
+  defaults:
+    _form: '\Drupal\community_builder\Form\CommunitySettingsForm'
+    _title: 'Community Builder settings'
+  requirements:
+    _permission: 'access content'

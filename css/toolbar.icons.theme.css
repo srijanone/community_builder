@@ -1,0 +1,10 @@
+/**
+ * Main menu icons.
+ */
+.toolbar-icon-system-admin-community:before {
+  background-image: url(../images/icons/toolbar.svg);
+}
+.toolbar-icon-system-admin-community:active:before,
+.toolbar-icon-system-admin-community.is-active:before {
+  background-image: url(../images/icons/toolbar.svg);
+}
