@@ -1,0 +1,386 @@
+---
+swagger: "2.0"
+info:
+  description: This project is about the community builder which will be platform to build community
+  version: 1.0.0
+  title: Community Builder
+host: dev-drupal-community.srijan.net
+basePath: /jsonapi/
+tags:
+  - name: Menu Components
+    description: List of all the APIs related to community builder plaform supported menu's
+  - name: Community Listing
+    description: List of all the APIs required to display a community
+  - name: Blogs
+    description: List of all the APIs required to display a blog/announcement
+  - name: Posts
+    description: List of all the APIs required to display & create Posts
+  - name: Misc
+    description: List of all the APIs that misc in nature
+schemes:
+  - https
+  - http
+security:
+  - password:
+      - read
+      - write
+paths:
+  /oauth/token:
+    post:
+      tags:
+        - Login API
+      summary: Login
+      description: This will generate user access token.
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: Token
+          description: Get user access token
+          schema:
+            type: object
+            required:
+              - userName
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+              client_secret:
+                type: string
+              grant_type:
+                type: string
+              client_id:
+                type: string
+              scope:
+                type: string
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+  /menu_link_content/menu_link_content:
+    get:
+      tags:
+        - Menu Components
+      summary: Menu items for the platform.
+      description: This operation will give list of menues for the platform.
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          type: string
+          required: true
+          description: Add bearer access token from Login API like "Bearer {{access_token}}"
+        - name: filter[menu_name]
+          in: query
+          description: use either "main" or "footer"
+          required: true
+          type: string
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+  /group/community:
+    get:
+      tags:
+        - Community
+      summary: Community Listing.
+      description: This api will give all the available communities.
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          type: string
+          required: true
+          description: Add bearer access token from Login API like "Bearer {{access_token}}"
+        - name: page[offset]
+          in: query
+          description: Page offset
+          required: false
+          type: integer
+        - name: page[limit]
+          in: query
+          description: Number of pages.
+          required: false
+          type: integer
+        - name: sort
+          in: query
+          description: (-created) for descending & (created) for asc
+          required: false
+          type: string
+        - name: filter[featured]
+          in: query
+          description: 0 or 1
+          required: false
+          type: integer
+        - name: filter[title][operator]
+          in: query
+          description: Decide the comparision operator like CONTAINS, =, >=
+          required: false
+          type: string
+        - name: filter[title][value]
+          in: query
+          description: Title keyword value
+          required: false
+          type: string
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+      security:
+        - password:
+            - read
+            - write
+  /group/community/{id}:
+    get:
+      tags:
+        - Community
+      summary: Community Detail
+      description: This api will give all the available communitis.
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          type: string
+          required: true
+          description: Add bearer access token from Login API like "Bearer {{access_token}}"
+        - name: id
+          in: path
+          description: unique community id from community list api.
+          required: true
+          type: string
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+  /node/blog:
+    get:
+      tags:
+        - Blogs
+      summary: Blog/Annoucement Listing.
+      description: This api will give list of all announcement and blogs
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          type: string
+          required: true
+          description: Add bearer access token from Login API like "Bearer {{access_token}}"
+        - name: page[offset]
+          in: query
+          description: Page offset
+          required: false
+          type: integer
+        - name: page[limit]
+          in: query
+          description: Number of pages.
+          required: false
+          type: integer
+        - name: filter[type]
+          in: query
+          description: use either "announcement" or "blog"
+          required: true
+          type: string
+        - name: sort
+          in: query
+          description: (-created) for descending & (created) for asc
+          required: false
+          type: string
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+      security:
+        - password:
+            - read
+            - write
+  /node/posts:
+    get:
+      tags:
+        - Posts
+      summary: Post Listing.
+      description: This api will give list of all posts based on community and site wide
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          type: string
+          required: true
+          description: Add bearer access token from Login API like "Bearer {{access_token}}"
+        - name: page[offset]
+          in: query
+          description: Page offset
+          required: false
+          type: integer
+        - name: page[limit]
+          in: query
+          description: Number of pages.
+          required: false
+          type: integer
+        - name: filter[community.id][value]
+          in: query
+          description: unique community id from community list api.
+          required: true
+          type: string
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+      security:
+        - password:
+            - read
+            - write
+    post:
+      tags:
+        - Posts
+      summary: Create posts
+      description: "API for Create posts under community"
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: Invalid
+        "403":
+          description: Forbidden
+  /taxonomy_term/tags:
+    get:
+      tags:
+        - Posts
+      summary: Tags List.
+      description: This api will give list of all tags created by admin in backend.
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          type: string
+          required: true
+          description: Add bearer access token from Login API like "Bearer {{access_token}}"
+        - name: page[offset]
+          in: query
+          description: Page offset
+          required: false
+          type: integer
+        - name: page[limit]
+          in: query
+          description: Number of pages.
+          required: false
+          type: integer
+        - name: filter[name][operator]
+          in: query
+          description: Decide the comparision operator like CONTAINS, =, >=
+          required: true
+          type: string
+        - name: filter[name][value]
+          in: query
+          description: name value of tags
+          required: true
+          type: string
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+      security:
+        - password:
+            - read
+            - write
+  /comment/post_comment:
+    get:
+      tags:
+        - Posts
+      summary: Tags List.
+      description: This api will give list of all tags created by admin in backend.
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          type: string
+          required: true
+          description: Add bearer access token from Login API like "Bearer {{access_token}}"
+        - name: page[offset]
+          in: query
+          description: Page offset
+          required: false
+          type: integer
+        - name: page[limit]
+          in: query
+          description: Number of pages.
+          required: false
+          type: integer
+        - name: filter[node.id]
+          in: query
+          description: Entity id of node
+          required: false
+          type: string
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+      security:
+        - password:
+            - read
+            - write
+  /block_content/cta_block:
+    get:
+      tags:
+        - Misc
+      summary: CTA block.
+      description: Return the details for CTA banner block.
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          type: string
+          required: true
+          description: Add bearer access token from Login API like "Bearer {{access_token}}"
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+  /paragraph/social_link:
+    get:
+      tags:
+        - Misc
+      summary: Social Links.
+      description: Returns list of social icons- images, link and title.
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          type: string
+          required: true
+          description: Add bearer access token from Login API like "Bearer {{access_token}}"
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+securityDefinitions:
+  password:
+    type: oauth2
+    tokenUrl: http://dev-react-community.srijan.net/oauth/token
+    flow: password
+    scopes:
+      write: allows modifying resources
+      read: allows reading resources
+definitions: {}

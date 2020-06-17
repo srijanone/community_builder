@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: post_comment
-label: 'Post Comment'
-target_entity_type_id: node
-description: 'Used for post comments'

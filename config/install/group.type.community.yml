@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: community
-label: Community
-description: 'Add communities as group under Community group type'
-creator_membership: true
-creator_wizard: false
-creator_roles: {  }

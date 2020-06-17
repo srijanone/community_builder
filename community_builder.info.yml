@@ -13,4 +13,5 @@ dependencies:
   - drupal:comment
   - drupal:ajax_comments
   - drupal:jsonapi
+  - drupal:jsonapi_extras
   - drupal:views_infinite_scroll

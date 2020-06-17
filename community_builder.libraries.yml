@@ -5,3 +5,22 @@ toolbar:
       css/toolbar.icons.theme.css: {}
   dependencies:
     - 'toolbar/toolbar'
+
+facebook_login:
+  version: VERSION
+  js:
+    js/facebook-login.js: {}
+
+facebook_graph_api:
+  version: 'VERSION'
+  js:
+    js/facebook-graph-api.js: {}
+
+chosen_js:
+  version: 'VERSION'
+  js:
+    js/chosen.jquery.min.js: {}
+    js/ask-question.js: {}
+  css:
+    theme:
+      css/chosen.min.css: {}

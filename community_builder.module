@@ -14,8 +14,11 @@ use Drupal\node\NodeInterface;
  */
 function community_builder_theme($existing, $type, $theme, $path) {
   return [
-    'hero_banner_block' => [
-      'variables' => ['data' => NULL],
+    'facebook_friend_post' => [
+      'variables' => ['block' => NULL],
+    ],
+    'facebook_friends' => [
+      'variables' => ['block' => NULL],
     ],
   ];
 }
@@ -48,6 +51,7 @@ function community_builder_form_alter(array &$form, FormStateInterface $form_sta
       // Hide widget when community already selected.
       //    $form['field_community']['#attributes']['style'] = 'display:none';
     }
+    $form['#attached']['library'][] = 'community_builder/chosen_js';
   }
   if ($form_id === 'node_posts_edit_form') {
     $form['field_community']['widget']['#attributes']['disabled'] = 'disabled';
@@ -60,15 +64,23 @@ function community_builder_form_alter(array &$form, FormStateInterface $form_sta
  * Implements hook_ENTITY_TYPE_insert() for node entities.
  * @param \Drupal\node\NodeInterface $node
  *
+ * @throws \Drupal\Core\Entity\EntityStorageException
  */
 function community_builder_node_insert(NodeInterface $node) {
-//  $groupEntity = [];
-//  $groupId = $node->get('field_community')->value;
-//  $type = $groupEntity->getGroupType()->id() . '-group_node-' . $node->getType();
-//  $groupContentEntity = \Drupal\group\Entity\GroupContent::create([
-//    'gid' => $groupEntity->id(),
-//    'entity_id' => $node->id(),
-//    'type' => $type,
-//  ]);
-//  $groupContentEntity->save();
+  // Assign the node post to group entity.
+  if ($node->getType() === 'posts') {
+    // Get community entity id.
+    $groupId = $node->get('field_community')->target_id;
+    if (!empty($groupId)) {
+      // Load group community.
+      $groupEntity = \Drupal\group\Entity\Group::load($groupId);
+      $type = $groupEntity->getGroupType()->id() . '-group_node-' . $node->getType();
+      $groupContentEntity = \Drupal\group\Entity\GroupContent::create([
+        'gid' => $groupEntity->id(),
+        'entity_id' => $node->id(),
+        'type' => $type,
+      ]);
+      $groupContentEntity->save();
+    }
+  }
 }
