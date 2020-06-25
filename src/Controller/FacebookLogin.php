@@ -98,6 +98,18 @@ class FacebookLogin extends ControllerBase {
     $user->set("field_fb_id", $request['uid']);
     // Set facebook mutual friend for future reference.
     $user->set("field_facebook_friends", $request['friends']);
+    // Add user profile picture from facebook.
+    // Save Image in local from remote data.
+//    if (!empty($request['url'])) {
+//      $data = file_get_contents($request['url']);
+//      $file = file_save_data($data, "public://facebook_profile_pic/{$request['uid']}.jpeg");
+//      $profile_pic = [
+//        'target_id' => $file->fid,
+//        'alt' => 'Sample',
+//        'title' => 'Sample File'
+//      ];
+//      $user->set("field_profile_picture", $profile_pic);
+//    }
     $user->activate();
     //Save user account
     $user->save();
@@ -125,7 +137,6 @@ class FacebookLogin extends ControllerBase {
     // Update facebook mutual friends.
     $user->set("field_facebook_friends", $request['friends']);
     $user->save();
-    \Drupal::messenger()->addMessage('Login successful.');
     return true;
   }
 

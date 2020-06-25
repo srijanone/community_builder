@@ -24,3 +24,8 @@ chosen_js:
   css:
     theme:
       css/chosen.min.css: {}
+
+user_profile:
+  version: 'VERSION'
+  js:
+    js/user-profile.js: {}

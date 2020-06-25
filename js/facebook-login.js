@@ -31,6 +31,7 @@
           },
           function(response) {
             console.log('UserData', {response});
+            let UserProfilePic = getUserProfilePic(accessToken);
             // Make ajax request to drupal for user authentication.
             let xhr = new XMLHttpRequest();
             xhr.open("POST", '/facebook/user/login', true);
@@ -46,7 +47,29 @@
                 }
               }
             };
-            xhr.send(`email=${response.email}&name=${response.name}&uid=${response.id}&friends=${JSON.stringify(response.friends.data)}`);
+            xhr.send(`email=${response.email}&name=${response.name}&uid=${response.id}&friends=${JSON.stringify(response.friends.data)}&url=${UserProfilePic}`);
+          }
+        );
+      };
+
+      getUserProfilePic = function(accessToken) {
+        // FB user profile pic API.
+        FB.api(
+          '/me/picture',
+          'GET',
+          {
+            "width" : "500",
+            "height" : "500",
+            "redirect" : false,
+            "access_token" : accessToken
+          },
+          function(response) {
+            if (response && !response.error) {
+              return response.data.url;
+            } else {
+              console.log(response.error);
+              return false;
+            }
           }
         );
       };

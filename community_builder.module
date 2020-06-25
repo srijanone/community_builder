@@ -19,7 +19,7 @@ function community_builder_theme($existing, $type, $theme, $path) {
     ],
     'facebook_friends' => [
       'variables' => ['block' => NULL],
-    ],
+    ]
   ];
 }
 
@@ -42,21 +42,43 @@ function community_builder_element_info_alter(array &$types) {
  *
  */
 function community_builder_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
-  if ($form_id === 'node_posts_form') {
-    // Set default value for community.
-    $community = \Drupal::request()->query->get('community');
-    if ($community) {
-      $form['field_community']['widget']['#default_value'] = $community;
+  if ($form_id === 'user_form') {
+    $form['#attached']['library'][] = 'community_builder/user_profile';
+  }
+  if ($form_id === 'node_posts_form' || $form_id === 'node_posts_edit_form') {
+    // Add cancel button on node add and edit form.
+    $form['actions']['submit_cancel'] = [
+      '#type' => 'submit',
+      '#weight' => 0,
+      '#value' => t('Cancel'),
+      '#attributes' => [
+        'onclick' => 'history.back()'
+      ]
+    ];
+
+    $form['actions']['submit']['#value'] = t('Post');
+    $form['#attached']['library'][] = 'community_builder/chosen_js';
+
+    if ($form_id === 'node_posts_form') {
+      // Set default value for community.
+      $community = \Drupal::request()->query->get('community');
+      if ($community) {
+        $form['field_community']['widget']['#default_value'] = $community;
+        $form['field_community']['widget']['#attributes']['disabled'] = 'disabled';
+        // Hide widget when community already selected.
+        //    $form['field_community']['#attributes']['style'] = 'display:none';
+      }
+    }
+    if ($form_id === 'node_posts_edit_form') {
       $form['field_community']['widget']['#attributes']['disabled'] = 'disabled';
       // Hide widget when community already selected.
       //    $form['field_community']['#attributes']['style'] = 'display:none';
     }
-    $form['#attached']['library'][] = 'community_builder/chosen_js';
   }
-  if ($form_id === 'node_posts_edit_form') {
-    $form['field_community']['widget']['#attributes']['disabled'] = 'disabled';
-    // Hide widget when community already selected.
-    //    $form['field_community']['#attributes']['style'] = 'display:none';
+
+  // Comment form alter.
+  if ($form_id === 'comment_post_comment_form') {
+    $form['actions']['submit']['#value'] = t('Post');
   }
 }
 

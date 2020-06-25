@@ -5,6 +5,7 @@ namespace Drupal\community_builder\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\user\Entity\User;
+use Drupal\views\Views;
 /**
  * Provides a 'Facebook Friend Posts' block.
  *
@@ -31,7 +32,11 @@ class FacebookFriendPost extends BlockBase {
       }
       $uids = implode(',', $uids);
       // Get view block display by contextual filter of Facebook user id.
-      $posts = views_embed_view('facebook_friend_post', 'block', $uids);
+      $view = Views::getView('facebook_friend_post');
+      $view->setDisplay('block');
+      // Contextual relationship filter.
+      $view->setArguments([$uids]);
+      $posts = $view->render();
     }
 
     return [
