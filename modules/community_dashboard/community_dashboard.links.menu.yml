@@ -1,0 +1,6 @@
+entity.community.dashboard:
+  title: 'Dashboard'
+  description: 'Configure the general community module settings.'
+  route_name: 'community.dashboard'
+  parent: 'system.admin_community'
+  weight: 1

@@ -5,30 +5,23 @@ system.admin_community:
   parent: 'system.admin'
   weight: 2
 
-entity.community.dashboard:
-  title: 'Dashboard'
-  description: 'Configure the general community module settings.'
-  route_name: 'community.settings'
-  parent: 'system.admin_community'
-  weight: 10
-
 entity.community.add:
   title: 'Add Community'
   description: 'Add community'
   route_name: 'entity.group.add_page'
   parent: 'system.admin_community'
-  weight: 10
+  weight: 2
 
 entity.community.listing:
   title: 'Community List'
   description: 'Find and manage community.'
-  route_name: 'entity.group.collection'
+  route_name: 'view.community_list_view.community_listing_admin'
   parent: 'system.admin_community'
-  weight: 10
+  weight: 3
 
 community.settings:
   title: 'Settings'
   description: 'Configure the general community module settings.'
   route_name: 'community.settings'
   parent: 'system.admin_community'
-  weight: 10
+  weight: 4

@@ -5,3 +5,25 @@ community.settings:
     _title: 'Community Builder settings'
   requirements:
     _permission: 'access content'
+
+question.add_form:
+  path: '/communities/ask-question'
+  defaults:
+    _controller: '\Drupal\community_builder\Controller\AskQuestion::render'
+    _title: 'Ask Question'
+  requirements:
+    _node_add_access: 'node:posts'
+  options:
+    _node_operation_route: true
+    parameters:
+      node_type:
+        with_config_overrides: true
+
+community.facebook_login:
+  path: '/facebook/user/login'
+  defaults:
+    _controller: '\Drupal\community_builder\Controller\FacebookLogin::index'
+    _title: 'Facebook Login'
+  methods:  [POST]
+  requirements:
+    _permission: 'facebook login'

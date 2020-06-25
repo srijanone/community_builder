@@ -1,0 +1,4 @@
+community admin dashboard:
+  title: 'Community Admin Dashboard'
+  description: 'This will allow user to see community admin dashboard'
+  restrict access: TRUE
