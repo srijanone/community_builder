@@ -17,5 +17,8 @@ function community_dashboard_theme($existing, $type, $theme, $path) {
     'admin_dashboard' => [
       'variables' => ['data' => NULL],
     ],
+    'admin_dashboard_menu' => [
+      'variables' => ['data' => NULL],
+    ]
   ];
 }

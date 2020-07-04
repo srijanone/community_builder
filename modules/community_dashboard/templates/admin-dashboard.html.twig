@@ -1,24 +1,39 @@
-<h1>Dashboard Overview</h1>
-{{ data.menu }}
-<div class="users">
-  {{ data.user_count }} Users
-</div>
-<div class="posts">
-  {{ data.post_count }} Posts
-</div>
-<div class="comment">
-  {{ data.comment_count }} Comments
-</div>
-<div class="likes">
-  {{ data.like_count }} Likes
-</div>
-<div class="row">
-  <div class="col-md-6">
-    {{ data.top_users }}
+<div class="dashboard__body">
+  <ul class="total-info">
+    <li class="total-info__item total-info__item--users">
+      <div class="total-info__counter">{{ data.user_count }}</div>
+      <div class="total-info__text">
+        <a href="/admin/people">{{ 'Users'|t }}</a>
+      </div>
+    </li>
+    <li class="total-info__item total-info__item--posts">
+      <div class="total-info__counter">{{ data.post_count }}</div>
+      <div class="total-info__text">
+        <a href="/admin/community/posts">{{ 'Posts'|t }}</a>
+      </div>
+    </li>
+    <li class="total-info__item total-info__item--comments">
+      <div class="total-info__counter">{{ data.comment_count }}</div>
+      <div class="total-info__text">
+        <a href="/admin/content/comment">{{ 'Comments'|t }}</a>
+      </div>
+    </li>
+    <li class="total-info__item total-info__item--likes">
+      <div class="total-info__counter">{{ data.like_count }}</div>
+      <div class="total-info__text">{{ 'Likes'|t }}</div>
+    </li>
+  </ul>
+  <div class="row table-layout-info">
+    <div class="col-xl-6">
+      <h5 class="table-layout-info__title">{{ 'Top 5 Active Users'|t }}</h5>
+      {{ data.top_users }}
+    </div>
+    <div class="col-xl-6">
+      <h5 class="table-layout-info__title">{{ 'Top 5 Posts'|t }}</h5>
+      {{ data.top_posts }}
+    </div>
   </div>
-  <div class="col-md-6">
-    {{ data.top_posts }}
-  </div>
 </div>
+
 
 

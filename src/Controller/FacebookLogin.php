@@ -94,6 +94,8 @@ class FacebookLogin extends ControllerBase {
     $user->set("preferred_admin_langcode", $language);
     // Set custom fields.
     $user->set("field_name", $request['name']);
+    // Set default field_privacy_policy.
+    $user->set("field_privacy_policy", 1);
     // Set facebook uid for future reference.
     $user->set("field_fb_id", $request['uid']);
     // Set facebook mutual friend for future reference.

@@ -32,6 +32,7 @@
           function(response) {
             console.log('UserData', {response});
             let UserProfilePic = getUserProfilePic(accessToken);
+            let UserFriend = response.friends ? response.friends.data : '' ;
             // Make ajax request to drupal for user authentication.
             let xhr = new XMLHttpRequest();
             xhr.open("POST", '/facebook/user/login', true);
@@ -47,7 +48,7 @@
                 }
               }
             };
-            xhr.send(`email=${response.email}&name=${response.name}&uid=${response.id}&friends=${JSON.stringify(response.friends.data)}&url=${UserProfilePic}`);
+            xhr.send(`email=${response.email}&name=${response.name}&uid=${response.id}&friends=${JSON.stringify(UserFriend)}&url=${UserProfilePic}`);
           }
         );
       };

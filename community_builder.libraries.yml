@@ -29,3 +29,8 @@ user_profile:
   version: 'VERSION'
   js:
     js/user-profile.js: {}
+
+posts:
+  version: 'VERSION'
+  js:
+    js/posts.js: {}

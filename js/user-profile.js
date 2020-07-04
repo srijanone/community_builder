@@ -14,7 +14,8 @@
 
       $('#edit-field-dob-0-value-date').attr('max', finalDate.toString())
       $('#edit-submit').on('click', function(e) {
-        if (!$('#edit-pass-pass1').val().match(passRegex) &&
+        if ($('#edit-pass-pass1').val().length !== 0 &&
+          !$('#edit-pass-pass1').val().match(passRegex) &&
           $('span.password-strength__text').text() !== 'Strong' &&
           $('span.password-strength__text').text() !== 'Fair'){
           e.preventDefault();
