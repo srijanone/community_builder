@@ -1,0 +1,19 @@
+uuid: 70bfead3-2186-4669-b6cc-46693fce77f3
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.community
+id: community-anonymous
+label: Anonymous
+weight: -102
+internal: true
+audience: anonymous
+group_type: community
+permissions_ui: true
+permissions:
+  - 'access group_node overview'
+  - 'view group'
+  - 'view group_node:posts content'
+  - 'view group_node:posts entity'
+  - 'view unpublished group_node:posts entity'

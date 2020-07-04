@@ -1,0 +1,23 @@
+uuid: 1a426a73-6b05-4ac7-8c3d-4acf75905caa
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.content_type.community-group_node-posts
+id: group_content.community-group_node-posts.default
+targetEntityType: group_content
+bundle: community-group_node-posts
+mode: default
+content:
+  field_community:
+    weight: -3
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+hidden:
+  entity_id: true
+  field_images: true
+  uid: true

@@ -1,0 +1,17 @@
+uuid: 13aca5b0-bc19-41c7-b8bb-a42765ef3d01
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.community
+  module:
+    - user
+id: community-group_membership
+label: 'Community: Group membership'
+description: 'Adds users to groups as members.'
+group_type: community
+content_plugin: group_membership
+plugin_config:
+  group_cardinality: 0
+  entity_cardinality: 1
+  use_creation_wizard: false

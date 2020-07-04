@@ -1,0 +1,23 @@
+uuid: 92c32614-bf2e-4c04-9d82-4294c4ac8f0c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.flagging.field_offensive
+    - flag.flag.report
+id: flagging.report.field_offensive
+field_name: field_offensive
+entity_type: flagging
+bundle: report
+label: 'It''s offensive'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'It''s offensive'
+  off_label: 'It''s offensive'
+field_type: boolean

@@ -1,0 +1,8 @@
+uuid: 32ba0b07-fef8-4648-a26b-9a3708f38371
+langcode: en
+status: true
+dependencies: {  }
+id: dashboard
+label: Dashboard
+description: 'Admin dashboard menu'
+locked: false

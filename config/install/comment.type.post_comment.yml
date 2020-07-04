@@ -1,0 +1,8 @@
+uuid: 2c452554-ce27-4760-9088-4af708e4a61a
+langcode: en
+status: true
+dependencies: {  }
+id: post_comment
+label: 'Post Comment'
+target_entity_type_id: node
+description: 'Used for post comments'

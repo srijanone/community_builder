@@ -1,0 +1,22 @@
+uuid: 6de2ffb4-0ed8-42c4-b0e7-6a947a058a89
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.group.community.field_banner
+    - field.field.group.community.field_description
+    - field.field.group.community.field_featured
+    - group.type.community
+id: group.community.default
+targetEntityType: group
+bundle: community
+mode: default
+content: {  }
+hidden:
+  changed: true
+  created: true
+  field_banner: true
+  field_description: true
+  field_featured: true
+  label: true
+  uid: true

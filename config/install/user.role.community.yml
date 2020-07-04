@@ -1,0 +1,36 @@
+uuid: 39f11385-2a1e-4eb1-b63b-71578209b9cf
+langcode: en
+status: true
+dependencies: {  }
+id: community
+label: 'Community Admin'
+weight: -4
+is_admin: null
+permissions:
+  - 'access comments'
+  - 'access entity usage statistics'
+  - 'administer media'
+  - 'administer meta tags'
+  - 'create community group'
+  - 'create image media'
+  - 'create media'
+  - 'create posts content'
+  - 'create terms in tags'
+  - 'delete media'
+  - 'delete own image media'
+  - 'delete own posts content'
+  - 'delete own video media'
+  - 'edit own comments'
+  - 'edit own image media'
+  - 'edit own video media'
+  - 'post comments'
+  - 'search content'
+  - 'update media'
+  - 'use advanced search'
+  - 'use text format full_html'
+  - 'use text format restricted_html'
+  - 'view any unpublished content'
+  - 'view latest version'
+  - 'view media'
+  - 'view own unpublished content'
+  - 'view own unpublished media'

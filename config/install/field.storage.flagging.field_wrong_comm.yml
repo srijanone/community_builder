@@ -1,0 +1,18 @@
+uuid: 783e4275-fff1-4ddd-958b-f79fdcd28b39
+langcode: en
+status: true
+dependencies:
+  module:
+    - flag
+id: flagging.field_wrong_comm
+field_name: field_wrong_comm
+entity_type: flagging
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

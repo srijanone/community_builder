@@ -1,0 +1,21 @@
+uuid: b64d8caa-08ff-4e26-adc3-1380a1833f41
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.community
+id: community-member
+label: Member
+weight: -100
+internal: true
+audience: member
+group_type: community
+permissions_ui: true
+permissions:
+  - 'access group_node overview'
+  - 'create group_node:posts entity'
+  - 'delete own group_node:posts entity'
+  - 'update own group_node:posts entity'
+  - 'view group_node:posts content'
+  - 'view group_node:posts entity'
+  - 'view unpublished group_node:posts entity'

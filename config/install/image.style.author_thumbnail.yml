@@ -1,0 +1,15 @@
+uuid: 8f1d08fd-f6cf-4b04-9b68-3ca75310e1a5
+langcode: en
+status: true
+dependencies: {  }
+name: author_thumbnail
+label: 'Author Thumbnail'
+effects:
+  1cb40a45-126b-4344-9a74-43d007cbc96a:
+    uuid: 1cb40a45-126b-4344-9a74-43d007cbc96a
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 60
+      height: 60
+      anchor: center-center

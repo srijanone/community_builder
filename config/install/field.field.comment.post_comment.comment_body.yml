@@ -1,0 +1,28 @@
+uuid: 9cf90c86-b984-4747-9d14-8b5ecabd1c18
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.post_comment
+    - field.storage.comment.comment_body
+  module:
+    - allowed_formats
+    - text
+third_party_settings:
+  allowed_formats:
+    plain_text: plain_text
+    basic_html: '0'
+    restricted_html: '0'
+    full_html: '0'
+id: comment.post_comment.comment_body
+field_name: comment_body
+entity_type: comment
+bundle: post_comment
+label: 'Leave a comment'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -1,0 +1,137 @@
+uuid: a8aacab0-ecf4-4bc9-953a-82a8fd25c62a
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.post_comment
+  module:
+    - jsonapi_defaults
+third_party_settings:
+  jsonapi_defaults:
+    default_filter:
+      'filter:entity_type': node
+id: comment--post_comment
+disabled: false
+path: comment/post_comment
+resourceType: comment--post_comment
+resourceFields:
+  cid:
+    fieldName: cid
+    publicName: cid
+    enhancer:
+      id: ''
+    disabled: false
+  uuid:
+    fieldName: uuid
+    publicName: uuid
+    enhancer:
+      id: ''
+    disabled: false
+  langcode:
+    fieldName: langcode
+    publicName: langcode
+    enhancer:
+      id: ''
+    disabled: false
+  comment_type:
+    disabled: true
+    fieldName: comment_type
+    publicName: comment_type
+    enhancer:
+      id: ''
+  status:
+    fieldName: status
+    publicName: status
+    enhancer:
+      id: ''
+    disabled: false
+  uid:
+    fieldName: uid
+    publicName: uid
+    enhancer:
+      id: ''
+    disabled: false
+  pid:
+    fieldName: pid
+    publicName: parent
+    enhancer:
+      id: ''
+    disabled: false
+  entity_id:
+    fieldName: entity_id
+    publicName: node
+    enhancer:
+      id: ''
+    disabled: false
+  subject:
+    fieldName: subject
+    publicName: subject
+    enhancer:
+      id: ''
+    disabled: false
+  name:
+    disabled: true
+    fieldName: name
+    publicName: name
+    enhancer:
+      id: ''
+  mail:
+    disabled: true
+    fieldName: mail
+    publicName: mail
+    enhancer:
+      id: ''
+  homepage:
+    disabled: true
+    fieldName: homepage
+    publicName: homepage
+    enhancer:
+      id: ''
+  hostname:
+    disabled: true
+    fieldName: hostname
+    publicName: hostname
+    enhancer:
+      id: ''
+  created:
+    fieldName: created
+    publicName: created
+    enhancer:
+      id: ''
+    disabled: false
+  changed:
+    disabled: true
+    fieldName: changed
+    publicName: changed
+    enhancer:
+      id: ''
+  thread:
+    fieldName: thread
+    publicName: thread
+    enhancer:
+      id: ''
+    disabled: false
+  entity_type:
+    fieldName: entity_type
+    publicName: entity_type
+    enhancer:
+      id: ''
+    disabled: false
+  field_name:
+    fieldName: field_name
+    publicName: field_name
+    enhancer:
+      id: ''
+    disabled: false
+  default_langcode:
+    disabled: true
+    fieldName: default_langcode
+    publicName: default_langcode
+    enhancer:
+      id: ''
+  comment_body:
+    fieldName: comment_body
+    publicName: comment_body
+    enhancer:
+      id: ''
+    disabled: false

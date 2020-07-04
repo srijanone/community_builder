@@ -1,0 +1,56 @@
+uuid: 9801a089-4f90-4df5-9119-1bbf952b76e1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.flagging.report.field_offensive
+    - field.field.flagging.report.field_other
+    - field.field.flagging.report.field_spam
+    - field.field.flagging.report.field_wrong_comm
+    - flag.flag.report
+id: flagging.report.default
+targetEntityType: flagging
+bundle: report
+mode: default
+content:
+  field_offensive:
+    weight: 2
+    label: hidden
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_other:
+    weight: 3
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_spam:
+    weight: 0
+    label: hidden
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_wrong_comm:
+    weight: 1
+    label: hidden
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+hidden: {  }

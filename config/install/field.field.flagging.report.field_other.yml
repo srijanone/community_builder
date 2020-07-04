@@ -1,0 +1,23 @@
+uuid: 5769a4c8-82e4-4945-8d43-0b60b8f324e4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.flagging.field_other
+    - flag.flag.report
+id: flagging.report.field_other
+field_name: field_other
+entity_type: flagging
+bundle: report
+label: Other
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Other
+  off_label: Other
+field_type: boolean

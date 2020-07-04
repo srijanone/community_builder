@@ -1,0 +1,23 @@
+uuid: 9cd84016-98c3-40fd-bb5b-0a6794a9d997
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.flagging.field_wrong_comm
+    - flag.flag.report
+id: flagging.report.field_wrong_comm
+field_name: field_wrong_comm
+entity_type: flagging
+bundle: report
+label: 'It''s in the wrong community'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'It''s in the wrong community'
+  off_label: 'It''s in the wrong community'
+field_type: boolean

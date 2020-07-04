@@ -1,0 +1,14 @@
+uuid: c9a6775c-7d8a-4315-8d11-198077f69b47
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.community
+  module:
+    - user
+id: user_remove_role_action.community
+label: 'Remove the Community Admin role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: community

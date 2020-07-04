@@ -1,0 +1,32 @@
+uuid: d91f0f17-0c75-48a4-ac11-c4914d36391a
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: like
+label: Like
+bundles:
+  - posts
+entity_type: node
+global: false
+weight: 0
+flag_short: Like
+flag_long: Like
+flag_message: Like
+unflag_short: Like
+unflag_long: Like
+unflag_message: Like
+unflag_denied_text: ''
+flag_type: 'entity:node'
+link_type: ajax_link
+flagTypeConfig:
+  show_in_links:
+    full: full
+    teaser: teaser
+  show_as_field: true
+  show_on_form: false
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+linkTypeConfig: {  }

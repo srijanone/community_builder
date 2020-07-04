@@ -1,0 +1,18 @@
+uuid: 14133479-3c5e-430e-a28b-5c04a91b0217
+langcode: en
+status: true
+dependencies:
+  module:
+    - flag
+id: flagging.field_offensive
+field_name: field_offensive
+entity_type: flagging
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

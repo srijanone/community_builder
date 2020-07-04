@@ -1,0 +1,15 @@
+uuid: b69b2555-6152-4ab4-9f5f-b3168542559f
+langcode: en
+status: true
+dependencies:
+  config:
+    - flag.flag.report
+  module:
+    - flag
+id: flag_action.report_flag
+label: 'Report Posts'
+type: node
+plugin: 'flag_action:report_flag'
+configuration:
+  flag_id: report
+  flag_action: flag

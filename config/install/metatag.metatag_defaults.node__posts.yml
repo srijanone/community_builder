@@ -1,0 +1,10 @@
+uuid: ee94fec8-d448-486b-87fc-b11d8fce2982
+langcode: en
+status: true
+dependencies: {  }
+id: node__posts
+label: 'Content: Posts'
+tags:
+  keywords: '[node:field_tags]'
+  title: '[node:title] | [site:name]'
+  description: '[node:field_description]'

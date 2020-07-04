@@ -1,0 +1,21 @@
+uuid: 6d3f2811-39fe-4d3c-b084-415b6ac3c87a
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.community
+id: community-outsider
+label: Outsider
+weight: -101
+internal: true
+audience: outsider
+group_type: community
+permissions_ui: true
+permissions:
+  - 'create group_node:posts entity'
+  - 'join group'
+  - 'update own group_node:posts entity'
+  - 'view group'
+  - 'view group_node:posts content'
+  - 'view group_node:posts entity'
+  - 'view unpublished group_node:posts entity'

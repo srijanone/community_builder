@@ -1,0 +1,23 @@
+uuid: 975edd08-f8be-4829-86d3-ea9071a120b5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.field_featured
+    - group.type.community
+id: group.community.field_featured
+field_name: field_featured
+entity_type: group
+bundle: community
+label: Featured
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
