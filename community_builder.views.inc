@@ -21,9 +21,6 @@ function community_builder_views_data_alter(array &$data) {
       'title' => t('User Like Count'),
       'help' => t('Display user\'s like count by uid'),
       'id' => 'user_like_count',
-    ],
-    'sort' => [
-      'id' => 'standard',
     ]
   ];
 }

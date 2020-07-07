@@ -51,14 +51,14 @@ class CommunitySettingsForm extends ConfigFormBase {
       '#description' => $this->t('Copy the App ID of your Facebook App
       here. This value can be found from your App Dashboard.')
     ];
-    $form['facebook']['app_secret'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('App Secret'),
-      '#default_value' => $config->get('facebook.app_secret'),
-      '#required' => TRUE,
-      '#description' => $this->t('Copy the App Secret of your Facebook
-        App here. This value can be found from your App Dashboard.')
-    ];
+//    $form['facebook']['app_secret'] = [
+//      '#type' => 'textfield',
+//      '#title' => $this->t('App Secret'),
+//      '#default_value' => $config->get('facebook.app_secret'),
+//      '#required' => TRUE,
+//      '#description' => $this->t('Copy the App Secret of your Facebook
+//        App here. This value can be found from your App Dashboard.')
+//    ];
     $form['facebook']['api_version'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Facebook Graph API version'),
@@ -105,7 +105,7 @@ class CommunitySettingsForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = $this->config('community_builder.settings');
     $config->set('facebook.app_id', $form_state->getValue('app_id'));
-    $config->set('facebook.app_secret', $form_state->getValue('app_secret'));
+//    $config->set('facebook.app_secret', $form_state->getValue('app_secret'));
     $config->set('facebook.api_version', $form_state->getValue('api_version'));
     $config->set('facebook.post_login', $form_state->getValue('post_login'));
     $config->set('facebook.post_register', $form_state->getValue('post_register'));

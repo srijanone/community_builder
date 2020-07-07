@@ -1,0 +1,76 @@
+{#
+/**
+ * @file
+ * Default view template to display all the fields in a row.
+ *
+ * Available variables:
+ * - view: The view in use.
+ * - fields: A list of fields, each one contains:
+ *   - content: The output of the field.
+ *   - raw: The raw data for the field, if it exists. This is NOT output safe.
+ *   - class: The safe class ID to use.
+ *   - handler: The Views field handler controlling this field.
+ *   - inline: Whether or not the field should be inline.
+ *   - wrapper_element: An HTML element for a wrapper.
+ *   - wrapper_attributes: List of attributes for wrapper element.
+ *   - separator: An optional separator that may appear before a field.
+ *   - label: The field's label text.
+ *   - label_element: An HTML element for a label wrapper.
+ *   - label_attributes: List of attributes for label wrapper.
+ *   - label_suffix: Colon after the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ *   - has_label_colon: A boolean indicating whether to display a colon after
+ *     the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ * - row: The raw result from the query, with all data it fetched.
+ *
+ * @see template_preprocess_views_view_fields()
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="post-friend-card">
+  <div class="post-friend-card__user-pic">
+    {{ fields.field_profile_picture.content }}
+  </div>
+  <div class="post-friend-card__body">
+    <h6 class="post-friend-card__title">{{ fields.title.content }}</h6>
+    <ul class="post-total">
+      <li class="post-total__list post-total__list--space-xs">
+        <span class="post-total__count post-total__count--space-xs">{{ fields.comment_count.content }}</span>
+        <span class="post-total__comment post-total__comment--space-xs"></span>
+      </li>
+      <li class="post-total__list">
+        <span class="post-total__count like_count">{{ fields.count.content }}</span>
+{#        <div class="post-total__action-flag post-total__comment--space-xs"></div>#}
+        {% if logged_in %}
+          {{ fields.link_flag.content }}
+        {% else %}
+          <div class="flag">
+            <a href="#" data-toggle="modal" data-target="#loginModal">
+              Like
+            </a>
+          </div>
+          <!-- Modal -->
+          <div class="modal modal--login fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="loginModalLabel">User Login</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  {{ login_form }}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </li>
+    </ul>
+  </div>
+</div>

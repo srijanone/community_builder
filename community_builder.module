@@ -16,12 +16,30 @@ use Drupal\views\Plugin\views\query\QueryPluginBase;
  * @return array
  */
 function community_builder_theme($existing, $type, $theme, $path) {
+
+  // Defined template path.
+  $user_template = $path . '/templates/user';
+  $node_template = $path . '/templates/node';
+  $content_template = $path . '/templates/content';
+
   return [
     'facebook_friend_post' => [
       'variables' => ['block' => NULL],
     ],
     'facebook_friends' => [
       'variables' => ['block' => NULL],
+    ],
+    'user__full' => [
+      'render element' => 'elements',
+      'path' => $user_template
+    ],
+    'node__posts' => [
+      'render element' => 'elements',
+      'path' => $node_template
+    ],
+    'comment__field_comments__posts' => [
+      'render element' => 'elements',
+      'path' => $content_template,
     ]
   ];
 }
@@ -134,20 +152,6 @@ function community_builder_node_insert(NodeInterface $node) {
   }
 }
 
-
-
-/**
- * Implements hook_theme_suggestions_HOOK_alter() for block templates.
- * @param array $suggestions
- * @param array $variables
- */
-function community_builder_theme_suggestions_block_alter(array &$suggestions, array $variables) {
-  // Block suggestions for custom block bundles.
-  if (isset($variables['elements']['content']['#block_content'])) {
-    array_splice($suggestions, 1, 0, 'block__bundle__' . $variables['elements']['content']['#block_content']->bundle());
-  }
-}
-
 /**
  * Implements hook_preprocess_page() for pages.
  * Template: page--posts.html.twig
@@ -177,7 +181,10 @@ function community_builder_preprocess_page__posts(&$variables) {
  * @param array $variables
  */
 function community_builder_preprocess_node__posts(&$variables) {
-  $node = $variables['node'];
+  // Invoke core module node preprocess hook.
+  template_preprocess_node($variables);
+  // Get current node instance.
+  $node = $variables['elements']['#node'];
   // Build like flag for posts.
   $like_flag = [
     '#lazy_builder' => ['flag.link_builder:build', [
@@ -223,8 +230,10 @@ function community_builder_preprocess_node__posts(&$variables) {
       'edit' => "/node/{$node->id()}/edit",
       'delete' => "/node/{$node->id()}/delete"
     ];
+    $variables['same_user'] = true;
   } else {
     $variables['operational_links'] = NULL;
+    $variables['same_user'] = false;
   }
   // Render the login form for anonymous users.
   $variables['login_form'] = FALSE;
@@ -237,27 +246,14 @@ function community_builder_preprocess_node__posts(&$variables) {
 }
 
 /**
- * Implements hook_preprocess_page().
- * Template: page--user--login.html.twig
- *
- * @param array $variables
- */
-function community_builder_preprocess_page__user__login(array &$variables) {
-  //Add a JS library
-  $variables['#attached']['library'][] = 'community_builder/facebook_login';
-  // Get facebook app settings from configuration.
-  $config = \Drupal::config('community_builder.settings');
-  // pass variable to Drupal.Settings
-  $variables['#attached']['drupalSettings']['community_builder']['app_id'] = $config->get('facebook.app_id');;
-  $variables['#attached']['drupalSettings']['community_builder']['version'] = $config->get('facebook.api_version');;
-}
-
-/**
  * Implements hook_preprocess_comment()
  * Template: comment.html.twig
  * @param $variables
  */
-function community_builder_preprocess_comment(&$variables) {
+function community_builder_preprocess_comment__field_comments__posts(&$variables) {
+  // Invoke core module comment preprocess hook.
+  template_preprocess_comment($variables);
+  // Other alters.
   $comment = $variables['elements']['#comment'];
   // Change date format of comment.
   $variables['created'] = date('d M Y', $comment->getCreatedTime());
@@ -273,42 +269,37 @@ function community_builder_preprocess_comment(&$variables) {
 }
 
 /**
- * User profile preprocess for user__full.html.twig
+ * User profile preprocess for user--full.html.twig
  * Template: user--full.html.twig
  *
  * @param $variables
  */
 function community_builder_preprocess_user__full(&$variables) {
+  // Invoke core module user preprocess hook.
+  template_preprocess_user($variables);
   // Process user profile page data.
   // Get user id from user profile route.
   $user = \Drupal::routeMatch()->getParameter('user');
   $profile_uid = $user->id();
   // Set user id of profile route else current user.
   $current_user = !empty($profile_uid) ? $profile_uid : \Drupal::currentUser()->id();
+  // Pass UID for edit profile link.
+  $variables['current_user_id'] = $current_user;
   // User activity Post view.
-  $view = Views::getView('user_activity');
-  $view->setArguments([$current_user]);
-  $view->execute('posts');
-  $view->get_total_rows = TRUE;
-  $variables['user_activity_posts_count'] = $view->total_rows;
+  $variables['user_activity_posts_count'] = get_view_count('user_activity',
+    'posts', $current_user);
   $variables['user_activity_posts'] = views_embed_view(
     'user_activity', 'posts', $current_user);
 
   // User activity Like view.
-  $view = Views::getView('user_activity');
-  $view->setArguments([$current_user]);
-  $view->execute('likes');
-  $view->get_total_rows = TRUE;
-  $variables['user_activity_likes_count'] = $view->total_rows;
+  $variables['user_activity_likes_count'] = get_view_count('user_activity',
+    'likes', $current_user);
   $variables['user_activity_likes'] = views_embed_view(
     'user_activity', 'likes', $current_user);
 
   // User activity comments view.
-  $view = Views::getView('user_activity_comments');
-  $view->setArguments([$current_user]);
-  $view->execute('block');
-  $view->get_total_rows = TRUE;
-  $variables['user_activity_comments_count'] = $view->total_rows;
+  $variables['user_activity_comments_count'] = get_view_count(
+    'user_activity_comments', 'block', $current_user);
   $variables['user_activity_comments'] = views_embed_view(
     'user_activity_comments', 'block', $current_user);
   $variables['#cache']['contexts'][] = 'user';
@@ -323,6 +314,9 @@ function community_builder_preprocess_user__full(&$variables) {
 function community_builder_preprocess_views_view_fields__community_posts(&$variables) {
   // Pass login form for anonymous user.
   $variables['login_form'] = false;
+  // Set the current user id and send
+  $current_user = \Drupal::currentUser()->id();
+  $variables['current_user_id'] = $current_user;
   if (!$variables['logged_in']) {
     $form = Drupal::formBuilder()->getForm(Drupal\user\Form\UserLoginForm::class) ;
     $render = Drupal::service('renderer');
@@ -356,4 +350,20 @@ function community_builder_views_query_alter(ViewExecutable $view, QueryPluginBa
     $query->addField('node', 'nid', 'node_nid', array('function' => 'groupby'));
     $query->addGroupBy('node.nid');
   }
+}
+
+/**
+ * Return total view rows independent of pager.
+ * @param $id
+ * @param $display
+ * @param $args
+ *
+ * @return int
+ */
+function get_view_count($id, $display, $args) {
+  $view = Views::getView($id);
+  $view->setArguments([$args]);
+  $view->execute($display);
+  $view->get_total_rows = TRUE;
+  return $view->total_rows;
 }
