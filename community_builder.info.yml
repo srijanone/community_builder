@@ -13,3 +13,4 @@ dependencies:
   - drupal:ajax_comments
   - drupal:views_infinite_scroll
   - drupal:flag
+  - drupal:comment_ajax_pager
