@@ -1,4 +1,0 @@
-admin_dashboard:
-  version: 'VERSION'
-  js:
-    js/dashboard.js: {}

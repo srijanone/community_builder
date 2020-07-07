@@ -15,8 +15,7 @@
         "drupal/ajax_comments": "^1.0",
         "drupal/views_infinite_scroll": "^1.7",
         "drupal/comment_ajax_pager": "^1.5",
-        "drupal/flag": "^4.0",
-        "drupal/jsonapi_extras": "^3.14"
+        "drupal/flag": "^4.0"
     },
     "require-dev": {
         "drupal/diff": "~1.0",

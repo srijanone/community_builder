@@ -1,7 +1,0 @@
-community.dashboard:
-  path: '/dashboard'
-  defaults:
-    _controller: '\Drupal\community_dashboard\Controller\AdminDashboard::callback'
-    _title: 'Dashboard'
-  requirements:
-    _permission: 'access content'
