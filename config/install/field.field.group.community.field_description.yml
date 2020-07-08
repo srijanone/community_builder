@@ -5,14 +5,7 @@ dependencies:
     - field.storage.group.field_description
     - group.type.community
   module:
-    - allowed_formats
     - text
-third_party_settings:
-  allowed_formats:
-    basic_html: basic_html
-    restricted_html: '0'
-    full_html: '0'
-    plain_text: '0'
 id: group.community.field_description
 field_name: field_description
 entity_type: group

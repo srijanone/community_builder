@@ -5,14 +5,7 @@ dependencies:
     - field.storage.node.body
     - node.type.blog
   module:
-    - allowed_formats
     - text
-third_party_settings:
-  allowed_formats:
-    basic_html: basic_html
-    full_html: full_html
-    restricted_html: '0'
-    plain_text: '0'
 id: node.blog.body
 field_name: body
 entity_type: node

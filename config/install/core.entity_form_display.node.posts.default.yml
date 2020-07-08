@@ -14,7 +14,6 @@ dependencies:
   module:
     - comment
     - image
-    - length_indicator
     - metatag
     - path
     - text
@@ -84,13 +83,7 @@ content:
     settings:
       size: 60
       placeholder: 'Enter the title of the post'
-    third_party_settings:
-      length_indicator:
-        indicator_opt:
-          optimin: 10
-          optimax: 15
-          tolerance: 5
-        indicator: false
+    third_party_settings: {  }
 hidden:
   created: true
   moderation_state: true
