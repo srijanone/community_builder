@@ -4,15 +4,24 @@ dependencies:
   config:
     - field.storage.node.field_description
     - node.type.posts
+  module:
+    - allowed_formats
+    - text
+third_party_settings:
+  allowed_formats:
+    basic_html: basic_html
+    restricted_html: '0'
+    full_html: '0'
+    plain_text: '0'
 id: node.posts.field_description
 field_name: field_description
 entity_type: node
 bundle: posts
-label: Description
+label: 'Add Description'
 description: ''
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: string_long
+field_type: text_long

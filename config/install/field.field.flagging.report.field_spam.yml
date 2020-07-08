@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.flagging.field_spam
+    - flag.flag.report
+id: flagging.report.field_spam
+field_name: field_spam
+entity_type: flagging
+bundle: report
+label: 'It''s spam'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'It''s spam'
+  off_label: 'It''s spam'
+field_type: boolean

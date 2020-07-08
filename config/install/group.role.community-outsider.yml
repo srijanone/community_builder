@@ -11,4 +11,10 @@ audience: outsider
 group_type: community
 permissions_ui: true
 permissions:
+  - 'create group_node:posts entity'
+  - 'join group'
+  - 'update own group_node:posts entity'
+  - 'view group'
+  - 'view group_node:posts content'
   - 'view group_node:posts entity'
+  - 'view unpublished group_node:posts entity'

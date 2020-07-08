@@ -2,8 +2,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.group_content.community-group_node-posts.field_community
-    - field.field.group_content.community-group_node-posts.field_images
     - group.content_type.community-group_node-posts
     - image.style.thumbnail
   module:

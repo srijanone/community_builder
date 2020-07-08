@@ -1,0 +1,84 @@
+{#
+/**
+ * @file
+ * Default view template to display all the fields in a row.
+ *
+ * Available variables:
+ * - view: The view in use.
+ * - fields: A list of fields, each one contains:
+ *   - content: The output of the field.
+ *   - raw: The raw data for the field, if it exists. This is NOT output safe.
+ *   - class: The safe class ID to use.
+ *   - handler: The Views field handler controlling this field.
+ *   - inline: Whether or not the field should be inline.
+ *   - wrapper_element: An HTML element for a wrapper.
+ *   - wrapper_attributes: List of attributes for wrapper element.
+ *   - separator: An optional separator that may appear before a field.
+ *   - label: The field's label text.
+ *   - label_element: An HTML element for a label wrapper.
+ *   - label_attributes: List of attributes for label wrapper.
+ *   - label_suffix: Colon after the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ *   - has_label_colon: A boolean indicating whether to display a colon after
+ *     the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ * - row: The raw result from the query, with all data it fetched.
+ *
+ * @see template_preprocess_views_view_fields()
+ *
+ * @ingroup themeable
+ */
+#}
+{% set link = fields.view_node.content|striptags %}
+<div class="post-card">
+  <h4 class="post-card__title">{{ fields.title.content }}</h4>
+  <div class="post-tags">
+    {{ fields.field_tags.content }}
+  </div>
+  <div class="post-card__body">
+    <div class="post-card__description">
+      {{ fields.field_description.content }}
+    </div>
+    {% if fields.field_image.content is not empty %}
+      <div class="post-card__image">
+        {{ fields.field_image.content }}
+      </div>
+    {% endif %}
+  </div>
+  <div class="post-card__row">
+    <div class="post-card__col">
+      <div class="user-info">
+        <div class="user-info__photo">
+          <div class="user-info__image">
+            <img class="user-info__pic" src="{{ fields.field_profile_picture.content|striptags }}">
+          </div>
+        </div>
+        <div class="user-info__body">
+          <div class="user-info__author">
+            {{ fields.field_name.content }}
+            {% if fields.field_community.content is not empty %}
+              {{ ' in '|t }}
+              <strong>{{ fields.field_community.content }}</strong>
+            {% endif %}
+          </div>
+          <div class="user-info__location">{{ fields.field_location.content }}</div>
+          <div class="user-info__date">{{ fields.created.content }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="post-card__col">
+      <ul class="post-total">
+        <li class="post-total__list">
+          <span class="post-total__count">{{ fields.comment_count.content }}</span>
+          <a class="post-total__comment" href="{{ link }}"></a>
+        </li>
+        <li class="post-total__list">
+          <span class="post-total__count">{{ fields.count.content }}</span>
+          <div class="flag flag-like js-flag-like-88 action-flag"></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -4,11 +4,12 @@ dependencies:
   config:
     - field.field.group.community.field_banner
     - field.field.group.community.field_description
+    - field.field.group.community.field_featured
     - group.type.community
     - image.style.thumbnail
   module:
     - image
-    - path
+    - text
 id: group.community.default
 targetEntityType: group
 bundle: community
@@ -28,7 +29,14 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: string_textarea
+    type: text_textarea
+    region: content
+  field_featured:
+    weight: 3
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
   label:
     type: string_textfield
@@ -38,11 +46,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  path:
-    type: path
-    weight: 3
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
+  path: true
   uid: true

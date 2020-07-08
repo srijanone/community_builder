@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_send_email
+    - node.type.posts
+id: node.posts.field_send_email
+field_name: field_send_email
+entity_type: node
+bundle: posts
+label: 'Send email when someone replies'
+description: 'Before clicking submit you agree to the guidelines & terms of use for this site. Please make sure it contains no inappropriate language & personal contact details.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

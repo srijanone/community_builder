@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - menu_ui
     - scheduler
 third_party_settings:
   scheduler:
@@ -16,9 +17,13 @@ third_party_settings:
     unpublish_enable: false
     unpublish_required: false
     unpublish_revision: false
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
 name: Posts
 type: posts
-description: 'Add post to the community test'
+description: 'Add post to the community'
 help: ''
 new_revision: true
 preview_mode: 0

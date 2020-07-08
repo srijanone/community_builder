@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: node__posts
+label: 'Content: Posts'
+tags:
+  keywords: '[node:field_tags]'
+  title: '[node:title] | [site:name]'
+  description: '[node:field_description]'

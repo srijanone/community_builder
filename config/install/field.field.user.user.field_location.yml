@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_question_type
-    - node.type.posts
+    - field.storage.user.field_location
   module:
     - options
-id: node.posts.field_question_type
-field_name: field_question_type
-entity_type: node
-bundle: posts
-label: 'Question type'
+    - user
+id: user.user.field_location
+field_name: field_location
+entity_type: user
+bundle: user
+label: Location
 description: ''
 required: true
 translatable: false

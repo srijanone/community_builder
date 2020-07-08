@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: communities_list
+label: communities-list
+effects:
+  d846a649-ff95-4a4a-a44f-0224da504191:
+    uuid: d846a649-ff95-4a4a-a44f-0224da504191
+    id: image_scale_and_crop
+    weight: 2
+    data:
+      width: 350
+      height: 185
+      anchor: center-center

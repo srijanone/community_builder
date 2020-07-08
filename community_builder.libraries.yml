@@ -5,3 +5,22 @@ toolbar:
       css/toolbar.icons.theme.css: {}
   dependencies:
     - 'toolbar/toolbar'
+
+chosen_js:
+  version: 'VERSION'
+  js:
+    js/chosen.jquery.min.js: {}
+    js/ask-question.js: {}
+  css:
+    theme:
+      css/chosen.min.css: {}
+
+user_profile:
+  version: 'VERSION'
+  js:
+    js/user-profile.js: {}
+
+posts:
+  version: 'VERSION'
+  js:
+    js/posts.js: {}

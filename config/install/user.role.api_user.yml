@@ -1,0 +1,39 @@
+langcode: en
+status: true
+dependencies: {  }
+id: api_user
+label: 'Api User'
+weight: -5
+is_admin: null
+permissions:
+  - 'access comments'
+  - 'access content'
+  - 'access content overview'
+  - 'access entity usage statistics'
+  - 'access group overview'
+  - 'access media overview'
+  - 'access user profiles'
+  - 'administer blocks'
+  - 'administer comments'
+  - 'administer menu'
+  - 'administer nodes'
+  - 'administer search'
+  - 'administer url aliases'
+  - 'bypass group access'
+  - 'cancel account'
+  - 'change own username'
+  - 'create posts content'
+  - 'debug simple_oauth tokens'
+  - 'delete own posts content'
+  - 'edit own comments'
+  - 'edit own posts content'
+  - 'post comments'
+  - 'search content'
+  - 'use advanced search'
+  - 'use text format full_html'
+  - 'use text format restricted_html'
+  - 'view any unpublished content'
+  - 'view latest version'
+  - 'view media'
+  - 'view own unpublished content'
+  - 'view own unpublished media'

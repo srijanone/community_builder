@@ -3,9 +3,8 @@ status: true
 dependencies:
   config:
     - field.storage.group.field_banner
-    - field.storage.group.field_description
     - group.type.community
-    - image.style.large
+    - image.style.communities_list
   module:
     - group
     - image
@@ -51,7 +50,7 @@ display:
       pager:
         type: infinite_scroll
         options:
-          items_per_page: 6
+          items_per_page: 8
           offset: 0
           id: 0
           total_pages: null
@@ -71,9 +70,77 @@ display:
             automatically_load_content: true
       style:
         type: default
+        options:
+          grouping: {  }
+          row_class: 'communities-list__col col-lg-3 col-sm-6 col-12'
+          default_row_class: true
       row:
         type: fields
       fields:
+        field_banner:
+          id: field_banner
+          table: group__field_banner
+          field: field_banner
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: '0'
+          element_class: ''
+          element_label_type: '0'
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: div
+          element_wrapper_class: communities-list__image
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: image
+          settings:
+            image_style: communities_list
+            image_link: content
+          group_column: ''
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
         label:
           id: label
           table: groups_field_data
@@ -82,7 +149,7 @@ display:
           group_type: group
           admin_label: ''
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -139,15 +206,15 @@ display:
           entity_type: null
           entity_field: label
           plugin_id: field
-        field_description:
-          id: field_description
-          table: group__field_description
-          field: field_description
+        view_group:
+          id: view_group
+          table: groups
+          field: view_group
           relationship: none
           group_type: group
           admin_label: ''
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -187,84 +254,11 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: basic_string
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-        field_banner:
-          id: field_banner
-          table: group__field_banner
-          field: field_banner
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: ''
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: image
-          settings:
-            image_style: large
-            image_link: content
-          group_column: ''
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
+          text: ''
+          output_url_as_text: true
+          absolute: true
+          entity_type: group
+          plugin_id: entity_link
         nothing:
           id: nothing
           table: views
@@ -276,7 +270,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: 'Join Community'
+            text: "<h4  class=\"communities-list__title\">{{ label }}</h4>\r\n<a class=\"communities-list__btn btn\" href=\"{{ view_group }}\">\r\n<span class=\"communities-list__btn__text\">Join</span>\r\n<span class=\"communities-list__btn__icon\">+</span>\r\n</a>\r\n"
             make_link: false
             path: ''
             absolute: false
@@ -301,13 +295,13 @@ display:
             trim: false
             preserve_tags: ''
             html: false
-          element_type: ''
+          element_type: '0'
           element_class: ''
-          element_label_type: ''
+          element_label_type: '0'
           element_label_class: ''
           element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: div
+          element_wrapper_class: communities-list__title-wrapper
           element_default_classes: true
           empty: ''
           hide_empty: false
@@ -327,22 +321,61 @@ display:
           expose:
             operator_limit_selection: false
             operator_list: {  }
-      sorts:
-        label:
-          id: label
-          table: groups_field_data
-          field: label
+        field_featured_value:
+          id: field_featured_value
+          table: group__field_featured
+          field: field_featured_value
           relationship: none
           group_type: group
           admin_label: ''
-          order: ASC
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: boolean
+      sorts:
+        created:
+          id: created
+          table: groups_field_data
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: DESC
           exposed: false
           expose:
             label: ''
+          granularity: second
           entity_type: group
-          entity_field: label
-          plugin_id: standard
-      title: 'Community listing'
+          entity_field: created
+          plugin_id: date
+      title: Communities
       header: {  }
       footer: {  }
       empty: {  }
@@ -387,6 +420,7 @@ display:
           plugin_id: group_id
       display_extenders: {  }
       use_ajax: true
+      css_class: communities-list
     cache_metadata:
       max-age: -1
       contexts:
@@ -396,11 +430,109 @@ display:
         - url.query_args
       tags:
         - 'config:field.storage.group.field_banner'
-        - 'config:field.storage.group.field_description'
   block_community_listing:
     display_plugin: block
     id: block_community_listing
-    display_title: 'Community Listing Block'
+    display_title: 'Featured Community Block'
+    position: 2
+    display_options:
+      display_extenders: {  }
+      display_description: ''
+      arguments: {  }
+      defaults:
+        arguments: false
+        pager: false
+        footer: false
+        filters: false
+        filter_groups: false
+        css_class: false
+      block_hide_empty: true
+      pager:
+        type: some
+        options:
+          items_per_page: 4
+          offset: 0
+      footer:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: false
+          content:
+            value: "<a href=\"[view:url]\">\r\n<button type=\"button\" class=\"btn btn-primary btn--see-all\">See All</button>\r\n</a>"
+            format: full_html
+          plugin_id: text
+      filters:
+        type:
+          id: type
+          table: groups_field_data
+          field: type
+          value:
+            community: community
+          entity_type: group
+          entity_field: type
+          plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
+        field_featured_value:
+          id: field_featured_value
+          table: group__field_featured
+          field: field_featured_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: boolean
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      css_class: 'container communities-list'
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+      tags:
+        - 'config:field.storage.group.field_banner'
+  page:
+    display_plugin: page
+    id: page
+    display_title: 'Community Listing Page'
     position: 1
     display_options:
       display_extenders: {  }
@@ -408,13 +540,80 @@ display:
       arguments: {  }
       defaults:
         arguments: false
-      block_hide_empty: true
+        css_class: false
+        filters: false
+        filter_groups: false
+      path: communities
+      css_class: 'container communities-list communities-list--page'
+      filters:
+        type:
+          id: type
+          table: groups_field_data
+          field: type
+          value:
+            community: community
+          entity_type: group
+          entity_field: type
+          plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
+        label:
+          id: label
+          table: groups_field_data
+          field: label
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: word
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: label_op
+            label: ''
+            description: ''
+            use_operator: false
+            operator: label_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: label
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              editor: '0'
+              api_user: '0'
+              community: '0'
+            placeholder: 'Search for communities here'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: group
+          entity_field: label
+          plugin_id: string
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
       tags:
         - 'config:field.storage.group.field_banner'
-        - 'config:field.storage.group.field_description'

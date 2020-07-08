@@ -2,6 +2,9 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\NodeInterface;
+use Drupal\views\ViewExecutable;
+use Drupal\views\Views;
+use Drupal\views\Plugin\views\query\QueryPluginBase;
 
 /**
  * Implements hook_theme().
@@ -13,10 +16,25 @@ use Drupal\node\NodeInterface;
  * @return array
  */
 function community_builder_theme($existing, $type, $theme, $path) {
+
+  // Defined template path.
+  $user_template = $path . '/templates/user';
+  $node_template = $path . '/templates/node';
+  $content_template = $path . '/templates/content';
+
   return [
-    'hero_banner_block' => [
-      'variables' => ['data' => NULL],
+    'user__full' => [
+      'render element' => 'elements',
+      'path' => $user_template
     ],
+    'node__posts' => [
+      'render element' => 'elements',
+      'path' => $node_template
+    ],
+    'comment__field_comments__posts' => [
+      'render element' => 'elements',
+      'path' => $content_template,
+    ]
   ];
 }
 
@@ -39,20 +57,67 @@ function community_builder_element_info_alter(array &$types) {
  *
  */
 function community_builder_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
-  if ($form_id === 'node_posts_form') {
-    // Set default value for community.
-    $community = \Drupal::request()->query->get('community');
-    if ($community) {
-      $form['field_community']['widget']['#default_value'] = $community;
+
+  if ($form_id === 'user_form') {
+    $form['#attached']['library'][] = 'community_builder/user_profile';
+  }
+  if ($form_id === 'node_posts_form' || $form_id === 'node_posts_edit_form') {
+    // Add cancel button on node add and edit form.
+    $form['actions']['submit_cancel'] = [
+      '#type' => 'submit',
+      '#weight' => 0,
+      '#value' => t('Cancel'),
+      '#attributes' => [
+        'onclick' => 'history.back()'
+      ]
+    ];
+
+    $form['actions']['submit']['#value'] = t('Post');
+    $form['#attached']['library'][] = 'community_builder/chosen_js';
+
+    if ($form_id === 'node_posts_form') {
+      // Set default value for community.
+      $community = \Drupal::request()->query->get('community');
+      if ($community) {
+        $form['field_community']['widget']['#default_value'] = $community;
+        $form['field_community']['widget']['#attributes']['disabled'] = 'disabled';
+        // Hide widget when community already selected.
+        //    $form['field_community']['#attributes']['style'] = 'display:none';
+      }
+    }
+    if ($form_id === 'node_posts_edit_form') {
       $form['field_community']['widget']['#attributes']['disabled'] = 'disabled';
       // Hide widget when community already selected.
       //    $form['field_community']['#attributes']['style'] = 'display:none';
     }
   }
-  if ($form_id === 'node_posts_edit_form') {
-    $form['field_community']['widget']['#attributes']['disabled'] = 'disabled';
-    // Hide widget when community already selected.
-    //    $form['field_community']['#attributes']['style'] = 'display:none';
+
+  // Comment form alter.
+  if ($form_id === 'comment_post_comment_form') {
+    $form['actions']['submit']['#value'] = t('Post');
+  }
+
+  // User add & edit form alter.
+  if ($form_id === 'user_form') {
+    // Get current user.
+    $current_user = \Drupal::currentUser();
+    $roles = $current_user->getRoles();
+    $form['field_fb_id']['widget'][0]['value']['#attributes']['disabled'] = 'disabled';
+    $form['field_facebook_friends']['widget'][0]['value']['#attributes']['disabled'] = 'disabled';
+    // Check current user role.
+    if (!in_array('administrator', $roles)) {
+      $form['field_privacy_policy']['#attributes']['style'] = 'display:none';
+    }
+    // Add cancel button on user add and edit form.
+    $form['actions']['submit_cancel'] = [
+      '#type' => 'submit',
+      '#weight' => 0,
+      '#value' => t('Cancel'),
+      '#attributes' => [
+        'onclick' => 'history.back()',
+        'class' => ['button--primary']
+      ]
+    ];
   }
 }
 
@@ -60,15 +125,239 @@ function community_builder_form_alter(array &$form, FormStateInterface $form_sta
  * Implements hook_ENTITY_TYPE_insert() for node entities.
  * @param \Drupal\node\NodeInterface $node
  *
+ * @throws \Drupal\Core\Entity\EntityStorageException
  */
 function community_builder_node_insert(NodeInterface $node) {
-//  $groupEntity = [];
-//  $groupId = $node->get('field_community')->value;
-//  $type = $groupEntity->getGroupType()->id() . '-group_node-' . $node->getType();
-//  $groupContentEntity = \Drupal\group\Entity\GroupContent::create([
-//    'gid' => $groupEntity->id(),
-//    'entity_id' => $node->id(),
-//    'type' => $type,
-//  ]);
-//  $groupContentEntity->save();
+  // Assign the node post to group entity.
+  if ($node->getType() === 'posts') {
+    // Get community entity id.
+    $groupId = $node->get('field_community')->target_id;
+    if (!empty($groupId)) {
+      // Load group community.
+      $groupEntity = \Drupal\group\Entity\Group::load($groupId);
+      $type = $groupEntity->getGroupType()->id() . '-group_node-' . $node->getType();
+      $groupContentEntity = \Drupal\group\Entity\GroupContent::create([
+        'gid' => $groupEntity->id(),
+        'entity_id' => $node->id(),
+        'type' => $type,
+      ]);
+      $groupContentEntity->save();
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_page() for pages.
+ * Template: page--posts.html.twig
+ *
+ * @param array $variables
+ */
+function community_builder_preprocess_page__posts(&$variables) {
+  // Get Node object from the variables
+  $node = $variables['node'];
+
+  // Get community id from node
+  $community_id = $node->get('field_community')->getValue()[0]['target_id'];
+
+  // invoke and embed view with community id as filter
+  $view = Views::getView('community_detail_hero_banner');
+  $view->setDisplay('community_hero_banner');
+  $view->setArguments([$community_id]);
+
+  // Set new view as variable which will be rendered in template.
+  $variables['posts_hero_banner'] = $view->render();
+}
+
+/**
+ * Implements hook_preprocess_node() for posts.
+ * Template: node--posts.html.twig
+ *
+ * @param array $variables
+ */
+function community_builder_preprocess_node__posts(&$variables) {
+  // Invoke core module node preprocess hook.
+  template_preprocess_node($variables);
+  // Get current node instance.
+  $node = $variables['elements']['#node'];
+  // Build like flag for posts.
+  $like_flag = [
+    '#lazy_builder' => ['flag.link_builder:build', [
+      $node->getEntityTypeId(),
+      $node->id(),
+      'like',
+    ]],
+    '#create_placeholder' => TRUE,
+  ];
+
+  $like_flag = render($like_flag);
+  // Pass like flag for posts.
+  $variables['like_flag'] = $like_flag;
+
+  // Pass like count for posts.
+  $flag_service = Drupal::service('flag.count');
+  $counts = $flag_service->getEntityFlagCounts($node);
+
+  // Build report flag for posts.
+  $report_flag = [
+    '#lazy_builder' => ['flag.link_builder:build', [
+      $node->getEntityTypeId(),
+      $node->id(),
+      'report',
+    ]],
+    '#create_placeholder' => TRUE,
+  ];
+  $report_flag = render($report_flag);
+  // Pass like flag for posts.
+  $variables['report_flag'] = $report_flag;
+
+  $variables['like_count'] = $counts['like'];
+
+  // Get Node comment count.
+  $variables['comment_count'] = $node->get('field_comments')->comment_count;
+  // Change date format of node created.
+  $variables['date'] = date('d M Y', $node->getCreatedTime());
+  // Operational link
+  $current_user = \Drupal::currentUser()->id();
+  $author = $node->getOwnerId();
+  if ($current_user === $author) {
+    $variables['operational_links'] = [
+      'edit' => "/node/{$node->id()}/edit",
+      'delete' => "/node/{$node->id()}/delete"
+    ];
+    $variables['same_user'] = true;
+  } else {
+    $variables['operational_links'] = NULL;
+    $variables['same_user'] = false;
+  }
+  // Render the login form for anonymous users.
+  $variables['login_form'] = FALSE;
+  if (!$current_user) {
+    $form = Drupal::formBuilder()->getForm(Drupal\user\Form\UserLoginForm::class) ;
+    $render = Drupal::service('renderer');
+    $variables['login_form'] = $render->renderPlain($form);
+  }
+  $variables['#cache']['contexts'][] = 'user';
+}
+
+/**
+ * Implements hook_preprocess_comment()
+ * Template: comment.html.twig
+ * @param $variables
+ */
+function community_builder_preprocess_comment__field_comments__posts(&$variables) {
+  // Invoke core module comment preprocess hook.
+  template_preprocess_comment($variables);
+  // Other alters.
+  $comment = $variables['elements']['#comment'];
+  // Change date format of comment.
+  $variables['created'] = date('d M Y', $comment->getCreatedTime());
+  $current_user = \Drupal::currentUser()->id();
+  $author_id = $variables['author_id'];
+  if ($current_user === $author_id) {
+    $variables['is_own'] = true;
+  }
+  else {
+    $variables['is_own'] = false;
+  }
+  $variables['#cache']['contexts'][] = 'user';
+}
+
+/**
+ * User profile preprocess for user--full.html.twig
+ * Template: user--full.html.twig
+ *
+ * @param $variables
+ */
+function community_builder_preprocess_user__full(&$variables) {
+  // Invoke core module user preprocess hook.
+  template_preprocess_user($variables);
+  // Process user profile page data.
+  // Get user id from user profile route.
+  $user = \Drupal::routeMatch()->getParameter('user');
+  $profile_uid = $user->id();
+  // Set user id of profile route else current user.
+  $current_user = !empty($profile_uid) ? $profile_uid : \Drupal::currentUser()->id();
+  // Pass UID for edit profile link.
+  $variables['current_user_id'] = $current_user;
+  // User activity Post view.
+  $variables['user_activity_posts_count'] = get_view_count('user_activity',
+    'posts', $current_user);
+  $variables['user_activity_posts'] = views_embed_view(
+    'user_activity', 'posts', $current_user);
+
+  // User activity Like view.
+  $variables['user_activity_likes_count'] = get_view_count('user_activity',
+    'likes', $current_user);
+  $variables['user_activity_likes'] = views_embed_view(
+    'user_activity', 'likes', $current_user);
+
+  // User activity comments view.
+  $variables['user_activity_comments_count'] = get_view_count(
+    'user_activity_comments', 'block', $current_user);
+  $variables['user_activity_comments'] = views_embed_view(
+    'user_activity_comments', 'block', $current_user);
+  $variables['#cache']['contexts'][] = 'user';
+}
+
+/**
+ * Implements theme_preprocess_views_view_fields_VIEW($variables);
+ * Template: views-view-fields--community-posts.html.twig
+ *
+ * @param $variables
+ */
+function community_builder_preprocess_views_view_fields__community_posts(&$variables) {
+  // Pass login form for anonymous user.
+  $variables['login_form'] = false;
+  // Set the current user id and send
+  $current_user = \Drupal::currentUser()->id();
+  $variables['current_user_id'] = $current_user;
+  if (!$variables['logged_in']) {
+    $form = Drupal::formBuilder()->getForm(Drupal\user\Form\UserLoginForm::class) ;
+    $render = Drupal::service('renderer');
+    $variables['login_form'] = $render->renderPlain($form);
+  }
+  $variables['#cache']['contexts'][] = 'user';
+}
+
+/**
+ * implements theme_preprocess_views_view_fields_VIEW($variables);
+ * Template: block--views-block--community-posts-list.html.twig
+ */
+function community_builder_preprocess_block__views_block__community_posts_list(&$variables) {
+  // Pass community id to submit post button.
+  // It will pre select the community when creating post.
+  $group = \Drupal::routeMatch()->getParameter('group');
+  $variables['community_id'] = $group->id();
+}
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function community_builder_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
+  /* This is because when we add relationship of flag with any user the we get duplicate data.
+   * Drupal.org issue: https://www.drupal.org/project/flag/issues/2922066
+   * */
+  if (($view->id() == 'community_posts' && ($view->current_display == 'list'
+      || $view->current_display == 'recent_posts'
+      || $view->current_display == 'home_top_posts'
+      || $view->current_display == 'top_posts')) || $view->id() == 'user_activity') {
+    $query->addField('node', 'nid', 'node_nid', array('function' => 'groupby'));
+    $query->addGroupBy('node.nid');
+  }
+}
+
+/**
+ * Return total view rows independent of pager.
+ * @param $id
+ * @param $display
+ * @param $args
+ *
+ * @return int
+ */
+function get_view_count($id, $display, $args) {
+  $view = Views::getView($id);
+  $view->setArguments([$args]);
+  $view->execute($display);
+  $view->get_total_rows = TRUE;
+  return $view->total_rows;
 }

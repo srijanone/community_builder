@@ -9,7 +9,7 @@ id: node.posts.field_community
 field_name: field_community
 entity_type: node
 bundle: posts
-label: Community
+label: 'Select a Community'
 description: ''
 required: true
 translatable: false

@@ -1,0 +1,38 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: report
+label: 'Report Post'
+bundles:
+  - posts
+entity_type: node
+global: false
+weight: 0
+flag_short: 'Report Post'
+flag_long: 'Report Post'
+flag_message: 'Report Post'
+unflag_short: 'Reported Post'
+unflag_long: 'Reported Post'
+unflag_message: 'Reported Post'
+unflag_denied_text: ''
+flag_type: 'entity:node'
+link_type: field_entry
+flagTypeConfig:
+  show_in_links:
+    search_index: search_index
+    teaser: teaser
+  show_as_field: true
+  show_on_form: false
+  show_contextual_link: true
+  extra_permissions:
+    owner: '0'
+linkTypeConfig:
+  flag_confirmation: 'Report this post?'
+  unflag_confirmation: 'Reported this post'
+  flag_create_button: Report
+  flag_delete_button: Cancel
+  form_behavior: modal
+  edit_flagging: Report
+  flag_update_button: Report

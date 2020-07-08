@@ -5,8 +5,8 @@ dependencies:
     - file
     - image
     - node
-id: node.field_images
-field_name: field_images
+id: node.field_image
+field_name: field_image
 entity_type: node
 type: image
 settings:
@@ -22,7 +22,7 @@ settings:
   display_default: false
 module: image
 locked: false
-cardinality: 10
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

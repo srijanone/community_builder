@@ -1,0 +1,65 @@
+{#
+/**
+ * @file
+ * Default view template to display all the fields in a row.
+ *
+ * Available variables:
+ * - view: The view in use.
+ * - fields: A list of fields, each one contains:
+ *   - content: The output of the field.
+ *   - raw: The raw data for the field, if it exists. This is NOT output safe.
+ *   - class: The safe class ID to use.
+ *   - handler: The Views field handler controlling this field.
+ *   - inline: Whether or not the field should be inline.
+ *   - wrapper_element: An HTML element for a wrapper.
+ *   - wrapper_attributes: List of attributes for wrapper element.
+ *   - separator: An optional separator that may appear before a field.
+ *   - label: The field's label text.
+ *   - label_element: An HTML element for a label wrapper.
+ *   - label_attributes: List of attributes for label wrapper.
+ *   - label_suffix: Colon after the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ *   - has_label_colon: A boolean indicating whether to display a colon after
+ *     the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ * - row: The raw result from the query, with all data it fetched.
+ *
+ * @see template_preprocess_views_view_fields()
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="post-card">
+  <h4 class="post-card__title">{{ fields.title.content }}</h4>
+  <div class="post-card__body">
+    <div class="post-card__description">
+      {{ fields.field_description.content|raw }}
+    </div>
+  </div>
+  <div class="author">
+    <ul class="post-total">
+      <li class="post-total__list">
+        <span class="post-total__count">{{ fields.comment_count.content }}</span>
+        <span class="post-total__comment"></span>
+      </li>
+    </ul>
+    <div class="links">
+      <div class="links__edit">{{ fields.edit_node.content }}</div>
+      <div class="links__delete">{{ fields.delete_node.content }}</div>
+    </div>
+  </div>
+  <div class="moderation-status">
+    <div class="count">{{ fields.count.content }}</div>
+    <div class="statistics">
+      <div class="statistics__title">Statistics:</div>
+      <ul>
+        <li>{{ fields.field_spam.label }}: {{ fields.field_spam.content }}</li>
+        <li>{{ fields.field_offensive.label }}: {{ fields.field_offensive.content }}</li>
+        <li>{{ fields.field_wrong_comm.label }}: {{ fields.field_wrong_comm.content }}</li>
+        <li>{{ fields.field_other.label }}: {{ fields.field_other.content }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
