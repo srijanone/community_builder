@@ -23,12 +23,6 @@ function community_builder_theme($existing, $type, $theme, $path) {
   $content_template = $path . '/templates/content';
 
   return [
-    'facebook_friend_post' => [
-      'variables' => ['block' => NULL],
-    ],
-    'facebook_friends' => [
-      'variables' => ['block' => NULL],
-    ],
     'user__full' => [
       'render element' => 'elements',
       'path' => $user_template

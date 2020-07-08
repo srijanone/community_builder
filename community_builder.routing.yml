@@ -18,12 +18,3 @@ question.add_form:
     parameters:
       node_type:
         with_config_overrides: true
-
-community.facebook_login:
-  path: '/facebook/user/login'
-  defaults:
-    _controller: '\Drupal\community_builder\Controller\FacebookLogin::index'
-    _title: 'Facebook Login'
-  methods:  [POST]
-  requirements:
-    _permission: 'facebook login'

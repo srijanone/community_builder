@@ -6,16 +6,6 @@ toolbar:
   dependencies:
     - 'toolbar/toolbar'
 
-facebook_login:
-  version: VERSION
-  js:
-    js/facebook-login.js: {}
-
-facebook_graph_api:
-  version: 'VERSION'
-  js:
-    js/facebook-graph-api.js: {}
-
 chosen_js:
   version: 'VERSION'
   js:
