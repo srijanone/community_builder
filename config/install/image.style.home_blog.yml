@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: home_blog
+label: 'Home blog'
+effects:
+  45c55637-6328-4985-8ae4-5df646f5ae74:
+    uuid: 45c55637-6328-4985-8ae4-5df646f5ae74
+    id: image_scale_and_crop
+    weight: 2
+    data:
+      width: 1000
+      height: 600
+      anchor: center-center
