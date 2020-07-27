@@ -1,22 +1,43 @@
-## This Module enables users to create communities/forums.
+CONTENTS OF THIS FILE
+---------------------
 
-- Clone the repository.
-``git clone git@github.com:srijanone/community-platform-builder.git community_builder_dev``
-- go to cloned directory ``community_builder_dev``
+ * Introduction
+ * Installation
+ * Configuration
+ * How to use
 
-## Branching Strategy
-#### Note: Make sure you have set git config(email, user, etc) matching to drupal.org as then only you will be able to receive credits.
+Introduction
+--------------
+This module will provides a ready community platform with few basic entities such as community, 
+Where User can quickly create community and start a platform, Also provides different pages as a start point.
+This module enables a faster development for a community platform.
 
-- Create branch dev.
-- Format:
-``git checkout -b [ProjectKey-TicketNumber]/[short description]``
-- Example:
-``git checkout -b CB-001/create-new-repo``
-- Commit should also contain the ticket number and short message
-- Format:
-``git commit -m "[ProjectKey-TicketNumber]:[message]"``
-- Example:
-``git commit -m "CB-001:Created repo and added ERADME."``
- - Rebase with dev
- ``git pull origin --rebase dev``
- - git push
+Installation:
+--------------
+* Strongly recommend installing this module using composer:
+`composer require 'drupal/community_builder:1.0.x-dev'` 
+
+
+Configuration
+--------------
+ * Admin will get and configuration menu in admin menu links named.
+ `Community Builder`
+ * This will provide you different pages links to Communities, posts etc.
+ 
+ 
+How to use
+--------------
+* once enabled you will see `Community Builder` menu in top manu bar for admin
+* From there you can go to `Add community page`, where you can create communities
+* Content types Posts and Blog will be created.
+* To enable posts listing on community pages please go to 
+  `/admin/structure/block`
+  (Administration > Structure > Block Layout)
+  - Enable view block called `Community Posts: Post list` in content region
+  - Set pages config to `{path_alias_to_community}/*`
+  
+  
+ 
+
+
+

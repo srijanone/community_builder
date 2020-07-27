@@ -20,7 +20,6 @@ function community_builder_theme($existing, $type, $theme, $path) {
   // Defined template path.
   $user_template = $path . '/templates/user';
   $node_template = $path . '/templates/node';
-  $content_template = $path . '/templates/content';
 
   return [
     'user__full' => [
@@ -30,10 +29,6 @@ function community_builder_theme($existing, $type, $theme, $path) {
     'node__posts' => [
       'render element' => 'elements',
       'path' => $node_template
-    ],
-    'comment__field_comments__posts' => [
-      'render element' => 'elements',
-      'path' => $content_template,
     ]
   ];
 }
@@ -240,29 +235,6 @@ function community_builder_preprocess_node__posts(&$variables) {
 }
 
 /**
- * Implements hook_preprocess_comment()
- * Template: comment.html.twig
- * @param $variables
- */
-function community_builder_preprocess_comment__field_comments__posts(&$variables) {
-  // Invoke core module comment preprocess hook.
-  template_preprocess_comment($variables);
-  // Other alters.
-  $comment = $variables['elements']['#comment'];
-  // Change date format of comment.
-  $variables['created'] = date('d M Y', $comment->getCreatedTime());
-  $current_user = \Drupal::currentUser()->id();
-  $author_id = $variables['author_id'];
-  if ($current_user === $author_id) {
-    $variables['is_own'] = true;
-  }
-  else {
-    $variables['is_own'] = false;
-  }
-  $variables['#cache']['contexts'][] = 'user';
-}
-
-/**
  * User profile preprocess for user--full.html.twig
  * Template: user--full.html.twig
  *
@@ -360,4 +332,11 @@ function get_view_count($id, $display, $args) {
   $view->execute($display);
   $view->get_total_rows = TRUE;
   return $view->total_rows;
+}
+
+/**
+ * Implements hook page_attachments
+ */
+function community_builder_page_attachments(array &$attachments) {
+    $attachments[‘#attached’][‘library’][] = ‘community_builder/community_builder_css’;
 }

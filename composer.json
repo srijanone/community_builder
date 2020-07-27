@@ -1,5 +1,5 @@
 {
-    "name": "srijanone/comunity_builder",
+    "name": "drupal/comunity_builder",
     "keywords": ["community", "Drupal"],
     "description": "Enables the creation of Community entities.",
     "type": "drupal-module",

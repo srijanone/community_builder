@@ -1,0 +1,162 @@
+.node .post-detail__wrapper .field--type-image {
+  float: none;
+}
+
+.author {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin: 0 0 20px;
+  padding-bottom: 20px;
+  border-bottom: solid 1px #e9e9e9;
+  color: #737373;
+}
+
+.author__info {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.author .profile .field--type-image {
+  width: 56px;
+  height: 56px;
+  margin: 0 10px 0 0;
+  padding: 5px;
+  float: left;
+  border: solid 1px #d4d4d4;
+  border-radius: 50%;
+}
+
+@media only screen and (min-width: 768px) {
+  .author .profile .field--type-image {
+    margin: 0 0.625rem;
+  }
+}
+
+.author .profile .field--type-image img {
+  margin: 0;
+  border-radius: 50%;
+  -o-object-fit: fill;
+  object-fit: fill;
+}
+
+.author .profile .field--name-field-location {
+  color: #202020;
+}
+
+.author .comment-reply {
+  display: none;
+}
+
+.post-total {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  margin: 10px 0;
+  padding: 0;
+}
+
+.post-total--blog {
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.post-total__count {
+  padding: 0 10px;
+  color: #aeaeae;
+}
+
+.post-total__count--space-xs {
+  padding: 0 10px 0 0;
+  color: #494949;
+}
+
+.post-total__comment {
+  width: 20px;
+  height: 20px;
+  background: url("comment-icon.svg") no-repeat center center;
+  background-size: 98%;
+}
+
+.post-total__comment--space-xs {
+  width: 14px;
+  height: 14px;
+}
+
+.post-total__comment--blog {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+  border: solid 1px #e9e9e9;
+  border-radius: 50%;
+  background-size: 18px;
+}
+
+.post-total .flag .js-flag-message {
+  display: none;
+}
+
+.post-total .flag a {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: url("heart-icon.svg") no-repeat center center;
+  background-size: 100%;
+  text-indent: -9999999px;
+}
+
+.post-total .flag.action-unflag a {
+  background: url("heart-like-icon.svg") no-repeat center center;
+  background-size: 100%;
+}
+
+.post-total__list {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 10px;
+  list-style-type: none;
+}
+
+.post-total__list--space-xs {
+  padding: 0;
+}
+
+.post-total__list--blog {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: reverse;
+  -ms-flex-flow: column-reverse;
+  flex-flow: column-reverse;
+}
+
+.post-total__list--blog .flag a {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+  border: solid 1px #e9e9e9;
+  border-radius: 50%;
+  background-size: 20px;
+}
+
+.post-total__list--blog .flag.action-unflag a {
+  background-size: 20px;
+}

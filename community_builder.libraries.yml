@@ -24,3 +24,9 @@ posts:
   version: 'VERSION'
   js:
     js/posts.js: {}
+
+community_builder_css:
+  version: ‘VERSION’
+  css:
+    theme:
+      css/community.builder.css: {}
