@@ -16,3 +16,4 @@ dependencies:
   - drupal:comment_ajax_pager
   - drupal:field_group
   - drupal:metatag
+  - drupal:image
