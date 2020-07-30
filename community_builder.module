@@ -338,5 +338,5 @@ function get_view_count($id, $display, $args) {
  * Implements hook page_attachments
  */
 function community_builder_page_attachments(array &$attachments) {
-    $attachments[‘#attached’][‘library’][] = ‘community_builder/community_builder_css’;
+    $attachments['#attached']['library'][] = 'community_builder/community_builder_css';
 }
